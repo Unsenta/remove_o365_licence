@@ -25,18 +25,20 @@ else {
 function Remove-OfficeLicense { 
     
     $license = cscript "C:\$pfiles\Microsoft Office\Office16\OSPP.VBS" /dstatus
-    $o365 = “LICENSE NAME: Office 16, Office16O365ProPlusR_Subscription1 edition”
+    $o365 = “---LICENSED---”
     for ($i = 0; $i -lt $license.Length; $i++) {
     Write-Host $i
         if ($license[$i] -match $o365) {
 
-            $i += 7 #jumping six lines to get to the product key line in the array, check output of dstatus and adjust as needed for the product you are removing
+            $i += 4 #jumping six lines to get to the product key line in the array, check output of dstatus and adjust as needed for the product you are removing
             $keyline = $license[$i] # extra step but i would rather deal with the variable as a string than an array, could be removed i guess, efficiency is not my concern
             $prodkey = $keyline.substring($keyline.length - 5, 5) # getting the last 5 characters of the line (prodkey)
             Write-Host "PRODKEY $prodkey"
+
         }
     }
     cscript "C:\$pfiles\Microsoft Office\Office16\OSPP.VBS" /unpkey:$prodkey
+    
 }
 
 $msgBoxInput =  [System.Windows.MessageBox]::Show('Please do not run any programms for 5 minutes','Office Fix','Ok','Information')
