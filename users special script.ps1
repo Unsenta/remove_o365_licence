@@ -35,13 +35,13 @@ function Add-RegistryRecord {
 }
 
 function Add-OutlookProfile {
-  $profilename = "Evolution"
+  $profilename = "Profile"
   $registryPathOutlookProfile = "HKCU:\Software\Microsoft\Office\16.0\Outlook\Profiles\$profilename"
   $registryPathOutlookDefault = "HKCU:\Software\Microsoft\Office\16.0\Outlook\"
   $value = $profilename
   New-Item -Path $registryPathOutlookProfile -Force | Out-Null
   New-ItemProperty -Path $registryPathOutlookDefault -Name DefaultProfile -Value $value -PropertyType String -Force | Out-Null
-  Remove-ItemProperty "HKCU:\Software\Microsoft\Office\16.0\Outlook\Autodiscover" -name "*@evolutiongaming.com" -Confirm:$false -Force | Out-Null
+  Remove-ItemProperty "HKCU:\Software\Microsoft\Office\16.0\Outlook\Autodiscover" -name "*@" -Confirm:$false -Force | Out-Null
   
   $Name = "O365ProfileAdded"
   $value = "1"
@@ -81,7 +81,7 @@ function Run-VBScript {
 
 
 
-$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to EVOLUTION.COM domain. Switching to new Outlook profile is recommended. 
+$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to DOmain.COM domain. Switching to new Outlook profile is recommended. 
 Switch to new Outlook profile?
  Yes - Switch now (Recommended)
  No - Will make it later','Office update','YesNo','Warning')
