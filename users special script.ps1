@@ -81,9 +81,10 @@ function Run-VBScript {
 
 
 
-$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to EVOLUTION.COM domain. Proceed with NEW Outlook profile?
- Yes - Change now
- No - Change later','New Domain switch','YesNo','Warning')
+$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to EVOLUTION.COM domain. Switching to new Outlook profile is recommended. 
+Switch to new Outlook profile?
+ Yes - Switch now (Recommended)
+ No - Will make it later','Office update','YesNo','Warning')
  
  
  
@@ -96,7 +97,7 @@ switch  ($msgBoxInput) {
     }
     Run-VBScript
     Add-OutlookProfile
-    $Yes = [System.Windows.MessageBox]::Show('Outlook profile changed.','Profile','Ok','Information')  
+    $Yes = [System.Windows.MessageBox]::Show('Profile created. Office installation updated.','Office update','Ok','Information')  
    }
    'No' {
     foreach ($proc in $proclist) {
@@ -104,6 +105,6 @@ switch  ($msgBoxInput) {
       stop-process -name $proc -ErrorAction SilentlyContinue -Force
     }
     Run-VBScript
-    $No = [System.Windows.MessageBox]::Show('Outlook Profile not changed','Profile','Ok','Information')  
+    $No = [System.Windows.MessageBox]::Show('Profile not created. Office installation updated.','Office update','Ok','Information')  
   }
 }
