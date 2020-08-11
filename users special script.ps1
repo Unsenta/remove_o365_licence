@@ -35,7 +35,7 @@ function Add-RegistryRecord {
 }
 
 function Add-OutlookProfile {
-  $profilename = "Profile"
+  $profilename = "ProfileName"
   $registryPathOutlookProfile = "HKCU:\Software\Microsoft\Office\16.0\Outlook\Profiles\$profilename"
   $registryPathOutlookDefault = "HKCU:\Software\Microsoft\Office\16.0\Outlook\"
   $value = $profilename
@@ -81,30 +81,21 @@ function Run-VBScript {
 
 
 
-$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to DOmain.COM domain. Switching to new Outlook profile is recommended. 
-Switch to new Outlook profile?
- Yes - Switch now (Recommended)
- No - Will make it later','Office update','YesNo','Warning')
+$msgBoxInput =  [System.Windows.MessageBox]::Show('Existing Office installation will be updated to DOMAIN.COM domain. New Outlook profile will be created.','Office update','OkCancel','Warning')
  
  
  
  
 switch  ($msgBoxInput) {
-  'Yes' {
+  'OK' {
     foreach ($proc in $proclist) {
       Write-Host "stopping" $proc
       stop-process -name $proc -ErrorAction SilentlyContinue -Force
     }
     Run-VBScript
     Add-OutlookProfile
-    $Yes = [System.Windows.MessageBox]::Show('Profile created. Office installation updated.','Office update','Ok','Information')  
+    [System.Windows.MessageBox]::Show('New Outlook profile has been created. Office installation updated.','Office update','Ok','Information')  
    }
-   'No' {
-    foreach ($proc in $proclist) {
-      Write-Host "stopping" $proc
-      stop-process -name $proc -ErrorAction SilentlyContinue -Force
-    }
-    Run-VBScript
-    $No = [System.Windows.MessageBox]::Show('Profile not created. Office installation updated.','Office update','Ok','Information')  
+   'Cancel' { 
   }
 }
