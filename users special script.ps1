@@ -41,7 +41,7 @@ function Add-OutlookProfile {
   $value = $profilename
   New-Item -Path $registryPathOutlookProfile -Force | Out-Null
   New-ItemProperty -Path $registryPathOutlookDefault -Name DefaultProfile -Value $value -PropertyType String -Force | Out-Null
-  Remove-ItemProperty "HKCU:\Software\Microsoft\Office\16.0\Outlook\Autodiscover" -name "*@" -Confirm:$false -Force | Out-Null
+  Remove-ItemProperty "HKCU:\Software\Microsoft\Office\16.0\Outlook\Autodiscover" -name "*@domain.com" -Confirm:$false -Force | Out-Null
   
   $Name = "O365ProfileAdded"
   $value = "1"
